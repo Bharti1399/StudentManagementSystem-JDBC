@@ -49,35 +49,63 @@ public class StudentDao {
 			System.out.print("Enter your choice:-");
 			int choice = sc.nextInt();
 			if(choice==1) {
-				PreparedStatement ps = con.prepareStatement("update student set student_name=? where student_id=?");
 				System.out.print("Enter Student Id :- ");
-				ps.setInt(2, sc.nextInt());
+				int student_id=sc.nextInt();
 				
-				System.out.print("Enter your name to Updated :- ");
-				ps.setString(1, sc.next());
-				ps.executeUpdate();
-				System.out.println("Name Updated Successfully...");
+				PreparedStatement ps1 = con.prepareStatement("select student_name from student where student_id=?");
+				ps1.setInt(1, student_id);	
 				
+				ResultSet result = ps1.executeQuery();
+				if(result.next()) {
+					PreparedStatement ps = con.prepareStatement("update student set student_name=? where student_id=?");
+					ps.setInt(2, student_id);
+					System.out.print("Enter your name to Updated :- ");
+					ps.setString(1, sc.next());
+					ps.executeUpdate();
+					System.out.println("Name Updated Successfully...");
+				}else {
+					System.out.println("Student Not Found....");
+				}
 			}
 			else if(choice==2) {
-				PreparedStatement ps = con.prepareStatement("update student set student_email=? where student_id=?");
 				System.out.print("Enter Student Id :- ");
-				ps.setInt(2, sc.nextInt());
-				System.out.print("Enter your email to Updated :- ");
-				ps.setString(1, sc.next());
-				ps.executeUpdate();
-				System.out.println("Email Updated Successfully...");
+				int student_id=sc.nextInt();
 				
+				PreparedStatement ps1 = con.prepareStatement("select student_name from student where student_id=?");
+				ps1.setInt(1, student_id);	
+				
+				ResultSet result = ps1.executeQuery();
+				if(result.next()) {
+					PreparedStatement ps = con.prepareStatement("update student set student_email=? where student_id=?");
+					ps.setInt(2, student_id);
+					System.out.print("Enter your email to Updated :- ");
+					ps.setString(1, sc.next());
+					ps.executeUpdate();
+					System.out.println("Email Updated Successfully...");
+				}else {
+					System.out.println("Student Not Found....");
+				}	
 			}
 			else if(choice==3) {
-				PreparedStatement ps = con.prepareStatement("update student set date_of_birth=? where student_id=?");
 				System.out.print("Enter Student Id :- ");
-				ps.setInt(2, sc.nextInt());
-				System.out.print("Enter your DOB to Updated :- ");
-				ps.setString(1, sc.next());
-				ps.executeUpdate();
-				System.out.println("DOB Updated Successfully...");
-			}else {
+				int student_id=sc.nextInt();
+				
+				PreparedStatement ps1 = con.prepareStatement("select student_name from student where student_id=?");
+				ps1.setInt(1, student_id);	
+				
+				ResultSet result = ps1.executeQuery();
+				if(result.next()) {
+					PreparedStatement ps = con.prepareStatement("update student set date_of_birth=? where student_id=?");
+					ps.setInt(2, student_id);
+					System.out.print("Enter your DOB to Updated :- ");
+					ps.setString(1, sc.next());
+					ps.executeUpdate();
+					System.out.println("DOB Updated Successfully...");
+				}else {
+					System.out.println("Student Not Found....");
+				}	
+			}
+			else {
 				System.out.println("invalid choice....");
 			}
 			con.close();
