@@ -18,7 +18,7 @@ public class StudentDao {
 			System.out.println("Enter how many records want to insert :-");
 			int count = sc.nextInt();
 			for(int i=0;i<count;i++) {
-				System.out.print("Enter student id:- ");
+				System.out.print("Enter Student id:- ");
 				ps.setInt(1, sc.nextInt());
 				
 				System.out.print("Enter Student name:- ");

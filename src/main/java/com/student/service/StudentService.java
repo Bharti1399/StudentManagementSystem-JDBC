@@ -1,6 +1,5 @@
 package com.student.service;
 
-import java.sql.SQLException;
 import java.util.Scanner;
 import com.student.dao.StudentDao;
 
@@ -9,14 +8,16 @@ public class StudentService {
 	
 	public void studentService(){
 		Scanner sc = new Scanner(System.in);
+		StudentDao studentDao = new StudentDao();
 		System.out.println("--------------------------------------");
+		
 		System.out.println("1. Register Student");
 		System.out.println("2. Update Student Profile");
 		System.out.println("3. Enroll into a Course");
 		System.out.println("4. View all Courses");
 		System.out.println("5. View Grade");
 		System.out.println("6. Exit");
-		StudentDao studentDao = new StudentDao();
+		
 		
 		System.out.println();
 		System.out.print("Enter Your Choice : ");
@@ -49,5 +50,7 @@ public class StudentService {
 				System.out.println("Exiting");
 				return;
 		}
+		
+		sc.close();
 	}
 }
