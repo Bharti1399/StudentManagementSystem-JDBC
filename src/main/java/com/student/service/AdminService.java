@@ -14,7 +14,7 @@ public class AdminService {
 		System.out.println("4. View All Enrollments");
 		System.out.println("5. Assign Grades(Using Functions)");
 		System.out.println("6. Add Courde, Student, Enrollments (Using Stored Procedure)");
-		System.out.println("7. RETURN");
+		System.out.println("7. Exit");
 		System.out.println();
 		System.out.print("Enter your choice:- ");
 		int choice = sc.nextInt();
@@ -37,7 +37,9 @@ public class AdminService {
 				break;
 				
 			case 5:
-//				adminDao.assignGrades();
+				System.out.print("Enter Enrollment id:-");
+				int enroll_id=sc.nextInt();
+				adminDao.assignGrades(enroll_id);
 				break;
 				
 			case 6:

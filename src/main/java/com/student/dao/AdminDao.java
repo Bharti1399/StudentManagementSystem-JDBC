@@ -9,6 +9,8 @@ import java.util.Scanner;
 
 public class AdminDao {
 
+	Connection con;
+	
 	Scanner sc = new Scanner(System.in);
 	public void operationsOnCourses() {
 		System.out.println();
@@ -16,7 +18,7 @@ public class AdminDao {
 		System.out.print("Enter Your Choice :- ");
 		int choice = sc.nextInt();
 		try {
-			Connection con = DriverManager.getConnection("jdbc:postgresql://localhost:5432/student_management_system?user=postgres&password=root");
+			con = DriverManager.getConnection("jdbc:postgresql://localhost:5432/student_management_system?user=postgres&password=root");
 			switch(choice) {
 			case 1:{
 				PreparedStatement ps = con.prepareStatement("insert into course values(?,?,?)");
@@ -122,7 +124,6 @@ public class AdminDao {
 	}
 	
 	public void viewAllCourses() {
-		Connection con;
 		try {
 			con = DriverManager.getConnection("jdbc:postgresql://localhost:5432/student_management_system?user=postgres&password=root");
 			PreparedStatement ps = con.prepareStatement("select * from course");
@@ -137,7 +138,6 @@ public class AdminDao {
 	}
 	
 	public void viewAllEnrollments() {
-		Connection con;
 		try {
 			con = DriverManager.getConnection("jdbc:postgresql://localhost:5432/student_management_system?user=postgres&password=root");
 			PreparedStatement ps = con.prepareStatement("select * from enrollment");
@@ -150,12 +150,24 @@ public class AdminDao {
 			e.printStackTrace();
 		}
 	}
-	
-	public void assignGrades() {
-		Connection con;
+	public void assignGrades(int enroll_id) {
 		try {
-			con=DriverManager.getConnection("jdbc:postgresql://localhost:5432", "potgres", "root");
-			
+			con=DriverManager.getConnection("jdbc:postgresql://localhost:5432/student_management_system", "postgres", "root");
+			PreparedStatement ps1 = con.prepareStatement("select * from enrollment where enroll_id=?");
+			ps1.setInt(1, enroll_id);
+			ResultSet rs = ps1.executeQuery();
+			if(rs.next()) {
+				PreparedStatement ps = con.prepareStatement("select update_grade(?,?)");
+				System.out.print("Enter the grades:-");
+				ps.setString(1, sc.next());
+				ps.setInt(2, enroll_id);
+				ps.execute();
+				System.out.println("Grade Updated Successfully....");
+				con.close();
+			}else {
+				System.out.print("Enrollment Id is not present...");
+				con.close();
+			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -163,28 +175,27 @@ public class AdminDao {
 	}
 	
 	public void addStudentCourseEnrollUsingProcedure() {
-		Connection con;
 		try {
 			con = DriverManager.getConnection("jdbc:postgresql://localhost:5432/student_management_system?user=postgres&password=root");
-			PreparedStatement ps = con.prepareStatement("call insertCourseStudentEnrollment(?,?,?,?,?,?,?,?,?)");
-			System.out.print("Enter Enrollment id:-");
+			PreparedStatement ps = con.prepareStatement("call insert_data(?,?,?,?,?,?,?,?,?)");
+			System.out.print("Enter Course Id:-");
 			ps.setInt(1, sc.nextInt());
-			System.out.print("Enter Grade:-");
-			ps.setString(2, sc.next());
-			System.out.print("Enter Student id:-");
-			ps.setInt(3, sc.nextInt());
-			System.out.print("Enter Student Name:-");
-			ps.setString(4, sc.next());
-			System.out.print("Enter Student email id:-");
-			ps.setString(5, sc.next());
-			System.out.print("Enter DOB:-");
-			ps.setString(6, sc.next());
-			System.out.print("Enter Course id:-");
-			ps.setInt(7, sc.nextInt());
 			System.out.print("Enter Course Name:-");
+			ps.setString(2, sc.next());
+			System.out.print("Enter Course Credit:- ");
+			ps.setInt(3, sc.nextInt());
+			System.out.print("Enter Enrollment Id:-");
+			ps.setInt(4, sc.nextInt());
+			System.out.print("Enter grades:-");
+			ps.setString(5, sc.next());
+			System.out.print("Enter Student Id:-");
+			ps.setInt(6, sc.nextInt());
+			System.out.print("Enter Student Name:-");
+			ps.setString(7, sc.next());
+			System.out.print("Enter Student Email:-");
 			ps.setString(8, sc.next());
-			System.out.print("Enter Credits:-");
-			ps.setInt(9, sc.nextInt());
+			System.out.print("Enter Student DOB:-");
+			ps.setString(9, sc.next());
 
 			ps.execute();
 			System.out.println("Data Inserted Successfully....");
