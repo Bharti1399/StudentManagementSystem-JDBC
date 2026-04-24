@@ -186,8 +186,6 @@ public class AdminDao {
 			System.out.print("Enter Credits:-");
 			ps.setInt(9, sc.nextInt());
 
-			System.out.print("hi");
-			
 			ps.execute();
 			System.out.println("Data Inserted Successfully....");
 			con.close();
