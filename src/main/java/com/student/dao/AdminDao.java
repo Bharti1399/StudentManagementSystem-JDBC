@@ -59,22 +59,22 @@ public class AdminDao {
 					con.close();
 				}
 				else if(choice1==2) {
-						PreparedStatement ps1 = con.prepareStatement("select course_id from course where course_id=?");
-						System.out.print("Enter Course id:-");
-						int id = sc.nextInt();
-						ps1.setInt(1, id);
-						ResultSet result = ps1.executeQuery();
-						if(result.next()) {
-							PreparedStatement ps = con.prepareStatement("update course set credits=? where course_id=?");
-							ps.setInt(2,id);
-							System.out.print("Enter Updated credits:- ");
-							ps.setInt(1, sc.nextInt());
-							ps.execute();
-							System.out.println("Course Updated Successfully...");
-						}else{
-							System.out.println("Course id Does not match...");
-						}
-						con.close();
+					PreparedStatement ps1 = con.prepareStatement("select course_id from course where course_id=?");
+					System.out.print("Enter Course id:-");
+					int id = sc.nextInt();
+					ps1.setInt(1, id);
+					ResultSet result = ps1.executeQuery();
+					if(result.next()) {
+						PreparedStatement ps = con.prepareStatement("update course set credits=? where course_id=?");
+						ps.setInt(2,id);
+						System.out.print("Enter Updated credits:- ");
+						ps.setInt(1, sc.nextInt());
+						ps.execute();
+						System.out.println("Course Updated Successfully...");
+					}else{
+						System.out.println("Course id Does not match...");
+					}
+					con.close();
 				}
 				else
 					System.out.println("Invalid choice...");
@@ -96,7 +96,6 @@ public class AdminDao {
 				}
 			}
 				break;
-				
 			default: {
 					System.out.println("Invalid choice...please enter correct option");
 				    operationsOnCourses();	
